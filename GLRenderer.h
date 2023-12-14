@@ -22,6 +22,7 @@ protected:
 	HGLRC	 m_hrc;
 
 public:
+	float angle = 0.0f;
 	float m_yaw = 0.0f;
 	float m_pitch = 0.0f; //OpenGL Rendering Context 
 };

@@ -168,7 +168,7 @@ void CGLView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: Add your message handler code here and/or call default
 	if (nChar == '1') {
-			m_angle += 5.0;
+		m_angle += 5.0;
 	}
 	else if (nChar == '2') {
 		m_angle -= 5.0;

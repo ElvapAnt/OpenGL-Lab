@@ -59,24 +59,20 @@ void CGLRenderer::DrawScene(CDC* pDC, double angle)
 	//---------------------------------
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	float distance = 8; // Distance from the origin
+	float distance = 8;
 
 	float azimuthRad = m_pitch * (M_PI / 180.0f);
 	float elevationRad = m_yaw * (M_PI / 180.0f);
 
-	// Calculate camera position using spherical coordinates
 	float x = distance * cos(elevationRad) * sin(azimuthRad);
 	float y = distance * sin(elevationRad);
 	float z = distance * cos(elevationRad) * cos(azimuthRad);
 
-
 	glLoadIdentity();
 	gluLookAt(x, y, z,
-		0.0, 2, 0.0,
+		0.0, 2.0, 0.0,
 		0.0, 1.0, 0.0);
-
-	//glRotatef(m_pitch, 1.0f, 0.0f, 0.0f); // X-axis rotation (pitch)
-	//glRotatef(m_yaw, 0.0f, 1.0f, 0.0f); // Y-axis rotation (yaw)
+	
 
 	DrawFigure(angle);
 	DrawAxis(30.0);
@@ -247,116 +243,136 @@ void CGLRenderer::DrawFigure(double angle)
 {
 	double sR = 0.18;
 	double cH = 0.85;
+	//saksija
 	glColor3d(1.0, 0.5, 0.0);
-	DrawCylinder(0.5, 0.7, 0.74, 9);
-	DrawCylinder(cH, 0.5, 0.9, 9);
-	
-	//pocetak
+	DrawCylinder(cH, 0.7, 0.8, 9);
 	glPushMatrix();
 	glTranslatef(0.0, cH, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCylinder(cH, 0.40, 0.40, 10);
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+	DrawCylinder(cH/2, 1.0, 1.0, 9);
+	glPopMatrix();
+
+	//pocetak
+	glPushMatrix();
+	
+		glTranslatef(0.0, cH+cH/2, 0.0);
+		glColor3d(0.0, 0.75, 0.0);
+		DrawCylinder(cH, 0.35, 0.35, 10);
+	
+		glTranslatef(0.0, cH + sR, 0.0);
+		glColor3d(0.0, 0.55, 0.0);
+		DrawSphere(sR, 30, 30);
 	//-----kraj pocetka
 
 	//leva ruka cocktusa
-	glPushMatrix();
+		glPushMatrix();
 	
-	glRotatef(45, 1.0, 0.0, 0.0);
+			glRotatef(45, 1.0, 0.0, 0.0);
 	
-	glTranslatef(0.0, 2*sR-0.1, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCylinder(cH, 0.25, 0.25, 10);
 
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
 
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCone(cH, 0.25, 10);
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCone(cH, 0.25, 10);
 
-	glTranslatef(0.0, cH+sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
-	glPopMatrix();
+			glTranslatef(0.0, cH+sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+
+		glPopMatrix();
 	//-----kraj leve ruke
 	
 	//desna ruka cocktusa
-	glPushMatrix();
-	glRotatef(-45, 1.0, 0.0, 0.0);
-	
-	glTranslatef(0.0, 2 * sR - 0.1, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
-	
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+		glPushMatrix();
 
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCone(cH, 0.25, 10);
-
-	glTranslatef(0.0, cH+sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+			glRotatef(-45, 1.0, 0.0, 0.0);
 	
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCone(cH, 0.25, 10);
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCylinder(cH, 0.25, 0.25, 10);
 	
-	glTranslatef(0.0, cH+sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
 
-	glPopMatrix();
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCone(cH, 0.25, 10);
+
+			glTranslatef(0.0, cH+sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+	
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCone(cH, 0.25, 10);
+	
+			glTranslatef(0.0, cH+sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+
+		glPopMatrix();
 	//-----kraj desne ruke
 
-	glTranslatef(0.0, 2*sR - 0.05, 0.0);
-	glColor3d(0.0, 0.8, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
+		glTranslatef(0.0, sR, 0.0);
+		glColor3d(0.0, 0.8, 0.0);
+		DrawCylinder(cH, 0.25, 0.25, 10);
 	
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
+		glTranslatef(0.0, cH + sR, 0.0);
+		glColor3d(0.0, 0.55, 0.0);
+		DrawSphere(sR, 30, 30);
 
 	//gornja leva pokretljiva
-	glPushMatrix();
-	glRotatef(angle+45, 1.0, 0.0, 0.0);
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(1.0, 1.0, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCone(cH, 0.25, 10);
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
-	glPopMatrix();
+		glPushMatrix();
+	
+			glRotatef(angle+45, 1.0, 0.0, 0.0);
+	
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(1.0, 1.0, 0.0);
+			DrawCylinder(cH, 0.25, 0.25, 10);
+	
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+	
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCone(cH, 0.25, 10);
+	
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+
+		glPopMatrix();
 	//-----kraj gornje leve pokretljive
 
 	//gornja desna 
-	glPushMatrix();
-	glRotatef(- 45, 1.0, 0.0, 0.0);
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
-	glTranslatef(0.0, sR, 0.0);
-	glColor3d(0.0, 0.75, 0.0);
-	DrawCylinder(cH, 0.25, 0.25, 10);
-	glTranslatef(0.0, cH + sR, 0.0);
-	glColor3d(0.0, 0.55, 0.0);
-	DrawSphere(sR, 30, 30);
-	glPopMatrix();
+		glPushMatrix();
+
+			glRotatef(- 45, 1.0, 0.0, 0.0);
+			
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCylinder(cH, 0.25, 0.25, 10);
+			
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+			
+			glTranslatef(0.0, sR, 0.0);
+			glColor3d(0.0, 0.75, 0.0);
+			DrawCylinder(cH, 0.25, 0.25, 10);
+			
+			glTranslatef(0.0, cH + sR, 0.0);
+			glColor3d(0.0, 0.55, 0.0);
+			DrawSphere(sR, 30, 30);
+
+		glPopMatrix();
 	//-----kraj gornje desne
 
 	glPopMatrix();
